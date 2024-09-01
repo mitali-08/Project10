@@ -1,22 +1,19 @@
-pipeline{
-	agent any
-	stages{
-		stage(checkout){
-			steps{
-			git 'https://github.com/mitali-08/Project10.git'
-			}
-		}
-		stage(build){
-			steps{
-			sh 'mvn install'
-			}
-		}
-		stage(deploy){
-			steps{
-			sh 'cp target/Project10.war /home/mitali/Documents/devops/apache-tomcat-9.0.93/webapps'
-			}
-		}
+pipeline {
+	agent{
+	label 'mitz-label'
 	}
-}
-
+	stages {
+	    stage('Checkout') {
+	        steps {
+			checkout scm			       
+		      }}
+		stage('Build') {
+	           steps {
+			  sh 'JAVA_HOME=/home/mitz/slavedir1/jdk-11.0.24 /home/mitz/slavedir1/apache-maven-3.9.8/bin/mvn install'
+	                 }}
+		stage('Deployment'){
+		    steps {
+			sh 'cp target/Project10.war /home/mitz/slavedir1/apache-tomcat-9.0.93/webapps'
+			}}	
+}}
 			
