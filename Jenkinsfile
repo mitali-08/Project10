@@ -14,6 +14,11 @@ pipeline {
 		stage('Deployment'){
 		    steps {
 			sh 'cp target/Project10.war /home/mitz/slavedir1/apache-tomcat-9.0.93/webapps'
+			}}
+		stage('SlackIntegration'){
+		    steps {
+			slackSend baseUrl: 'https://hooks.slack.com/services/', channel: '# devops-notification', color: 'good', message: 'welcome to jenkins', teamDomain: 'ABC', tokenCredentialId: 'devops'
 			}}	
+	
 }}
 			
